@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #19486A;
+  --color-secondary: #56C02B;
+  --color-accent: #FD9D24;
+  --color-accent2: #00B4D8;
+  --color-bg: #F0F4F8;
+  --color-surface: #FFFFFF;
+  --color-text: #1A1A2E;
+  --color-error: #E5243B;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.font-tabular { font-variant-numeric: tabular-nums; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent2);
+  outline-offset: 2px;
+}
+
+/* Sidebar nav items hover */
+.sidebar-link:hover {
+  background-color: rgba(255,255,255,0.08) !important;
+  color: #ffffff !important;
+}
+
+/* Global input field */
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #1A1A2E;
+  background-color: #ffffff;
+  border: 1px solid #e2e5ea;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+.input-field:focus {
+  border-color: rgba(25, 72, 106, 0.4);
+  box-shadow: 0 0 0 3px rgba(25, 72, 106, 0.08);
+}
+
+/* Scrollbar styling for sidebar */
+nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* Spin animation for sync button */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive utility for header role badge */
+@media (min-width: 768px) {
+  .md\:\!flex { display: flex !important; }
+}
