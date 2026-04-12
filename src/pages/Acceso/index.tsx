@@ -41,7 +41,7 @@ export default function Acceso() {
       setError('Credenciales incorrectas. Intenta de nuevo.');
       gsap.fromTo('.login-card', { x: -6 }, {
         x: 6, duration: 0.07, repeat: 5, yoyo: true, ease: 'none',
-        onComplete: () => gsap.set('.login-card', { x: 0 }),
+        onComplete: () => { gsap.set('.login-card', { x: 0 }); },
       });
     }
     setLoading(false);
