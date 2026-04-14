@@ -57,6 +57,13 @@ export default function Recursos() {
     setForm({ monto: '', fuenteId: '', paisDestinoId: '', tipoAyuda: 'Donación', sector: 'Salud', estado: 'Disponible', fechaDesembolso: '', descripcion: '', impactoEstimado: '' });
   };
 
+  const labelStyle: React.CSSProperties = {
+    display: 'flex', alignItems: 'center', gap: '5px',
+    fontSize: '11px', fontWeight: 700, color: '#6b7280',
+    textTransform: 'uppercase', letterSpacing: '0.06em',
+    marginBottom: '8px',
+  };
+
   return (
     <div>
       <div className="page-header flex flex-wrap items-center justify-between gap-3 mb-5">
@@ -79,60 +86,48 @@ export default function Recursos() {
       <div className="page-content space-y-4">
         {/* Form panel */}
         {showForm && puedeCrear && (
-          <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+          <div style={{ background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100"
-              style={{ background: 'linear-gradient(135deg, #0f2a45 0%, #19486A 60%, #1a5c3a 100%)' }}>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
-                  <Plus size={16} className="text-white" />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 28px', background: 'linear-gradient(135deg, #0f2a45 0%, #19486A 60%, #1a5c3a 100%)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Plus size={18} color="#fff" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">Registrar nuevo recurso</h3>
-                  <p className="text-xs text-white/60">Completa todos los campos requeridos</p>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#fff', margin: 0 }}>Registrar nuevo recurso</h3>
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.55)', margin: 0, marginTop: '2px' }}>Completa todos los campos requeridos</p>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setShowForm(false)}
-                className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer"
-              >
-                <X size={15} className="text-white" />
+              <button type="button" onClick={() => setShowForm(false)} style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(255,255,255,0.12)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                <X size={16} color="#fff" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <form onSubmit={handleSubmit} style={{ padding: '28px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
 
                 {/* Monto */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <DollarSign size={12} className="text-[#19486A]" /> Monto (USD) <span className="text-red-400">*</span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-gray-400">$</span>
+                  <label style={labelStyle}><DollarSign size={12} style={{ color: '#19486A' }} /> Monto (USD) <span style={{ color: '#f87171' }}>*</span></label>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', fontWeight: 600, color: '#9ca3af' }}>$</span>
                     <input
                       type="text"
                       value={form.monto}
                       onChange={(e) => setForm({ ...form, monto: e.target.value })}
                       placeholder="5,000,000"
                       required
-                      className="w-full pl-7 pr-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 placeholder:text-gray-300"
+                      className="input-field"
+                      style={{ paddingLeft: '30px' }}
                     />
                   </div>
                 </div>
 
                 {/* Fuente */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <Building2 size={12} className="text-[#19486A]" /> Fuente <span className="text-red-400">*</span>
-                  </label>
-                  <select
-                    value={form.fuenteId}
-                    onChange={(e) => setForm({ ...form, fuenteId: e.target.value })}
-                    required
-                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
-                  >
+                  <label style={labelStyle}><Building2 size={12} style={{ color: '#19486A' }} /> Fuente <span style={{ color: '#f87171' }}>*</span></label>
+                  <select value={form.fuenteId} onChange={(e) => setForm({ ...form, fuenteId: e.target.value })} required className="input-field" style={{ cursor: 'pointer' }}>
                     <option value="">Seleccionar fuente</option>
                     {fuentes.map((f) => <option key={f.id} value={f.id}>{f.nombre}</option>)}
                   </select>
@@ -140,15 +135,8 @@ export default function Recursos() {
 
                 {/* País destino */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <MapPin size={12} className="text-[#19486A]" /> País destino <span className="text-red-400">*</span>
-                  </label>
-                  <select
-                    value={form.paisDestinoId}
-                    onChange={(e) => setForm({ ...form, paisDestinoId: e.target.value })}
-                    required
-                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
-                  >
+                  <label style={labelStyle}><MapPin size={12} style={{ color: '#19486A' }} /> País destino <span style={{ color: '#f87171' }}>*</span></label>
+                  <select value={form.paisDestinoId} onChange={(e) => setForm({ ...form, paisDestinoId: e.target.value })} required className="input-field" style={{ cursor: 'pointer' }}>
                     <option value="">Seleccionar país</option>
                     {paises.map((p) => <option key={p.id} value={p.id}>{p.bandera} {p.nombre}</option>)}
                   </select>
@@ -156,90 +144,61 @@ export default function Recursos() {
 
                 {/* Fecha desembolso */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <CalendarDays size={12} className="text-[#19486A]" /> Fecha desembolso <span className="text-red-400">*</span>
-                  </label>
-                  <input
-                    type="date"
-                    value={form.fechaDesembolso}
-                    onChange={(e) => setForm({ ...form, fechaDesembolso: e.target.value })}
-                    required
-                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800"
-                  />
+                  <label style={labelStyle}><CalendarDays size={12} style={{ color: '#19486A' }} /> Fecha desembolso <span style={{ color: '#f87171' }}>*</span></label>
+                  <input type="date" value={form.fechaDesembolso} onChange={(e) => setForm({ ...form, fechaDesembolso: e.target.value })} required className="input-field" />
                 </div>
 
                 {/* Tipo de ayuda */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <Tag size={12} className="text-[#19486A]" /> Tipo de ayuda
-                  </label>
-                  <select
-                    value={form.tipoAyuda}
-                    onChange={(e) => setForm({ ...form, tipoAyuda: e.target.value as TipoAyuda })}
-                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
-                  >
+                  <label style={labelStyle}><Tag size={12} style={{ color: '#19486A' }} /> Tipo de ayuda</label>
+                  <select value={form.tipoAyuda} onChange={(e) => setForm({ ...form, tipoAyuda: e.target.value as TipoAyuda })} className="input-field" style={{ cursor: 'pointer' }}>
                     {['Donación', 'Préstamo', 'Inversión'].map((t) => <option key={t}>{t}</option>)}
                   </select>
                 </div>
 
                 {/* Sector */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <Layers size={12} className="text-[#19486A]" /> Sector
-                  </label>
-                  <select
-                    value={form.sector}
-                    onChange={(e) => setForm({ ...form, sector: e.target.value as Sector })}
-                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
-                  >
+                  <label style={labelStyle}><Layers size={12} style={{ color: '#19486A' }} /> Sector</label>
+                  <select value={form.sector} onChange={(e) => setForm({ ...form, sector: e.target.value as Sector })} className="input-field" style={{ cursor: 'pointer' }}>
                     {['Salud', 'Educación', 'Infraestructura', 'Tecnología', 'Agricultura'].map((s) => <option key={s}>{s}</option>)}
                   </select>
                 </div>
 
                 {/* Descripción */}
-                <div className="md:col-span-2">
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <FileText size={12} className="text-[#19486A]" /> Descripción <span className="text-red-400">*</span>
-                  </label>
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <label style={labelStyle}><FileText size={12} style={{ color: '#19486A' }} /> Descripción <span style={{ color: '#f87171' }}>*</span></label>
                   <textarea
                     value={form.descripcion}
                     onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-                    rows={2}
+                    rows={3}
                     required
                     placeholder="Describe brevemente el propósito del recurso..."
-                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 placeholder:text-gray-300 resize-none"
+                    className="input-field"
+                    style={{ resize: 'none', lineHeight: '1.6' }}
                   />
                 </div>
 
                 {/* Impacto estimado */}
-                <div className="md:col-span-2">
-                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <Target size={12} className="text-[#19486A]" /> Impacto estimado
-                  </label>
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <label style={labelStyle}><Target size={12} style={{ color: '#19486A' }} /> Impacto estimado</label>
                   <input
                     type="text"
                     value={form.impactoEstimado}
                     onChange={(e) => setForm({ ...form, impactoEstimado: e.target.value })}
                     placeholder="Ej: 50,000 personas beneficiadas"
-                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 placeholder:text-gray-300"
+                    className="input-field"
                   />
                 </div>
               </div>
 
-              {/* Footer buttons */}
-              <div className="flex items-center justify-end gap-3 mt-6 pt-5 border-t border-gray-100">
-                <button
-                  type="button"
-                  onClick={() => setShowForm(false)}
-                  className="px-5 py-2.5 text-sm font-semibold text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors cursor-pointer"
-                >
+              {/* Footer */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '12px', marginTop: '28px', paddingTop: '20px', borderTop: '1px solid #f3f4f6' }}>
+                <button type="button" onClick={() => setShowForm(false)}
+                  style={{ padding: '10px 22px', fontSize: '14px', fontWeight: 600, color: '#4b5563', background: '#f3f4f6', border: 'none', borderRadius: '10px', cursor: 'pointer' }}>
                   Cancelar
                 </button>
-                <button
-                  type="submit"
-                  className="flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white rounded-xl transition-all cursor-pointer hover:shadow-lg active:scale-[0.98]"
-                  style={{ background: 'linear-gradient(135deg, #19486A 0%, #1a5c3a 100%)', boxShadow: '0 4px 14px rgba(25,72,106,0.3)' }}
-                >
+                <button type="submit"
+                  style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 24px', fontSize: '14px', fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg, #19486A 0%, #1a5c3a 100%)', border: 'none', borderRadius: '10px', cursor: 'pointer', boxShadow: '0 4px 14px rgba(25,72,106,0.3)' }}>
                   <Plus size={15} />
                   Registrar recurso
                 </button>
