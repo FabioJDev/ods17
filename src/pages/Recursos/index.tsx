@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, DollarSign, Building2, MapPin, CalendarDays, Tag, Layers, FileText, Target, X } from 'lucide-react';
 import { useAppStore } from '../../store/appStore';
 import { paises } from '../../data/paises';
 import DataTable from '../../components/ui/DataTable';
@@ -79,101 +79,168 @@ export default function Recursos() {
       <div className="page-content space-y-4">
         {/* Form panel */}
         {showForm && puedeCrear && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-            <h3 className="text-sm font-bold text-gray-700 mb-4">Registrar nuevo recurso</h3>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Monto (USD)</label>
-                <input
-                  type="text"
-                  value={form.monto}
-                  onChange={(e) => setForm({ ...form, monto: e.target.value })}
-                  placeholder="Ej: 5000000"
-                  required
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30"
-                />
+          <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100"
+              style={{ background: 'linear-gradient(135deg, #0f2a45 0%, #19486A 60%, #1a5c3a 100%)' }}>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
+                  <Plus size={16} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white">Registrar nuevo recurso</h3>
+                  <p className="text-xs text-white/60">Completa todos los campos requeridos</p>
+                </div>
               </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Fuente</label>
-                <select
-                  value={form.fuenteId}
-                  onChange={(e) => setForm({ ...form, fuenteId: e.target.value })}
-                  required
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30 cursor-pointer"
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X size={15} className="text-white" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                {/* Monto */}
+                <div>
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <DollarSign size={12} className="text-[#19486A]" /> Monto (USD) <span className="text-red-400">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-gray-400">$</span>
+                    <input
+                      type="text"
+                      value={form.monto}
+                      onChange={(e) => setForm({ ...form, monto: e.target.value })}
+                      placeholder="5,000,000"
+                      required
+                      className="w-full pl-7 pr-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 placeholder:text-gray-300"
+                    />
+                  </div>
+                </div>
+
+                {/* Fuente */}
+                <div>
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <Building2 size={12} className="text-[#19486A]" /> Fuente <span className="text-red-400">*</span>
+                  </label>
+                  <select
+                    value={form.fuenteId}
+                    onChange={(e) => setForm({ ...form, fuenteId: e.target.value })}
+                    required
+                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
+                  >
+                    <option value="">Seleccionar fuente</option>
+                    {fuentes.map((f) => <option key={f.id} value={f.id}>{f.nombre}</option>)}
+                  </select>
+                </div>
+
+                {/* País destino */}
+                <div>
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <MapPin size={12} className="text-[#19486A]" /> País destino <span className="text-red-400">*</span>
+                  </label>
+                  <select
+                    value={form.paisDestinoId}
+                    onChange={(e) => setForm({ ...form, paisDestinoId: e.target.value })}
+                    required
+                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
+                  >
+                    <option value="">Seleccionar país</option>
+                    {paises.map((p) => <option key={p.id} value={p.id}>{p.bandera} {p.nombre}</option>)}
+                  </select>
+                </div>
+
+                {/* Fecha desembolso */}
+                <div>
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <CalendarDays size={12} className="text-[#19486A]" /> Fecha desembolso <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    value={form.fechaDesembolso}
+                    onChange={(e) => setForm({ ...form, fechaDesembolso: e.target.value })}
+                    required
+                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800"
+                  />
+                </div>
+
+                {/* Tipo de ayuda */}
+                <div>
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <Tag size={12} className="text-[#19486A]" /> Tipo de ayuda
+                  </label>
+                  <select
+                    value={form.tipoAyuda}
+                    onChange={(e) => setForm({ ...form, tipoAyuda: e.target.value as TipoAyuda })}
+                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
+                  >
+                    {['Donación', 'Préstamo', 'Inversión'].map((t) => <option key={t}>{t}</option>)}
+                  </select>
+                </div>
+
+                {/* Sector */}
+                <div>
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <Layers size={12} className="text-[#19486A]" /> Sector
+                  </label>
+                  <select
+                    value={form.sector}
+                    onChange={(e) => setForm({ ...form, sector: e.target.value as Sector })}
+                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 cursor-pointer appearance-none"
+                  >
+                    {['Salud', 'Educación', 'Infraestructura', 'Tecnología', 'Agricultura'].map((s) => <option key={s}>{s}</option>)}
+                  </select>
+                </div>
+
+                {/* Descripción */}
+                <div className="md:col-span-2">
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <FileText size={12} className="text-[#19486A]" /> Descripción <span className="text-red-400">*</span>
+                  </label>
+                  <textarea
+                    value={form.descripcion}
+                    onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+                    rows={2}
+                    required
+                    placeholder="Describe brevemente el propósito del recurso..."
+                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 placeholder:text-gray-300 resize-none"
+                  />
+                </div>
+
+                {/* Impacto estimado */}
+                <div className="md:col-span-2">
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <Target size={12} className="text-[#19486A]" /> Impacto estimado
+                  </label>
+                  <input
+                    type="text"
+                    value={form.impactoEstimado}
+                    onChange={(e) => setForm({ ...form, impactoEstimado: e.target.value })}
+                    placeholder="Ej: 50,000 personas beneficiadas"
+                    className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/25 focus:border-[#19486A]/40 focus:bg-white transition-all text-gray-800 placeholder:text-gray-300"
+                  />
+                </div>
+              </div>
+
+              {/* Footer buttons */}
+              <div className="flex items-center justify-end gap-3 mt-6 pt-5 border-t border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="px-5 py-2.5 text-sm font-semibold text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors cursor-pointer"
                 >
-                  <option value="">Seleccionar fuente</option>
-                  {fuentes.map((f) => <option key={f.id} value={f.id}>{f.nombre}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">País destino</label>
-                <select
-                  value={form.paisDestinoId}
-                  onChange={(e) => setForm({ ...form, paisDestinoId: e.target.value })}
-                  required
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30 cursor-pointer"
-                >
-                  <option value="">Seleccionar país</option>
-                  {paises.map((p) => <option key={p.id} value={p.id}>{p.bandera} {p.nombre}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Fecha desembolso</label>
-                <input
-                  type="date"
-                  value={form.fechaDesembolso}
-                  onChange={(e) => setForm({ ...form, fechaDesembolso: e.target.value })}
-                  required
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Tipo de ayuda</label>
-                <select
-                  value={form.tipoAyuda}
-                  onChange={(e) => setForm({ ...form, tipoAyuda: e.target.value as TipoAyuda })}
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30 cursor-pointer"
-                >
-                  {['Donación', 'Préstamo', 'Inversión'].map((t) => <option key={t}>{t}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Sector</label>
-                <select
-                  value={form.sector}
-                  onChange={(e) => setForm({ ...form, sector: e.target.value as Sector })}
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30 cursor-pointer"
-                >
-                  {['Salud', 'Educación', 'Infraestructura', 'Tecnología', 'Agricultura'].map((s) => <option key={s}>{s}</option>)}
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Descripción</label>
-                <textarea
-                  value={form.descripcion}
-                  onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-                  rows={2}
-                  required
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30 resize-none"
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Impacto estimado</label>
-                <input
-                  type="text"
-                  value={form.impactoEstimado}
-                  onChange={(e) => setForm({ ...form, impactoEstimado: e.target.value })}
-                  placeholder="Ej: 50,000 personas beneficiadas"
-                  className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#19486A]/30"
-                />
-              </div>
-              <div className="md:col-span-2 flex gap-3">
-                <button type="button" onClick={() => setShowForm(false)}
-                  className="px-4 py-2.5 border border-gray-200 text-sm text-gray-600 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
                   Cancelar
                 </button>
-                <button type="submit"
-                  className="px-6 py-2.5 bg-[#19486A] text-white text-sm font-semibold rounded-xl hover:bg-[#0D2137] transition-colors cursor-pointer">
+                <button
+                  type="submit"
+                  className="flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white rounded-xl transition-all cursor-pointer hover:shadow-lg active:scale-[0.98]"
+                  style={{ background: 'linear-gradient(135deg, #19486A 0%, #1a5c3a 100%)', boxShadow: '0 4px 14px rgba(25,72,106,0.3)' }}
+                >
+                  <Plus size={15} />
                   Registrar recurso
                 </button>
               </div>
