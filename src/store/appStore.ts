@@ -26,7 +26,12 @@ export const useAppStore = create<AppState>()(
       toasts: [],
       agregarFuente: (f) => set((s) => ({ fuentes: [...s.fuentes, f] })),
       editarFuente: (f) => set((s) => ({ fuentes: s.fuentes.map((x) => (x.id === f.id ? f : x)) })),
-      agregarRecurso: (r) => set((s) => ({ recursos: [...s.recursos, r] })),
+      agregarRecurso: (r) => set((s) => ({
+        recursos: [...s.recursos, r],
+        fuentes: s.fuentes.map((f) =>
+          f.id === r.fuenteId ? { ...f, totalAportado: f.totalAportado + r.monto } : f
+        ),
+      })),
       setUsuario: (u) => set({ usuario: u }),
       agregarToast: (t) => {
         const id = Math.random().toString(36).slice(2);
